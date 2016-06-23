@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.pod.projetoconexao;
+package br.edu.ifpb.pod.projetopod;
 
 import java.io.IOException;
 import java.io.InputStream;
