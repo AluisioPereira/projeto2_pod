@@ -11,7 +11,6 @@
         <module>../Node2</module>
         <module>../Node3</module>
         <module>../Node4</module>
-        <module>bus</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

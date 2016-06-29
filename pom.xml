@@ -10,6 +10,11 @@
         <module>Node2</module>
         <module>Node3</module>
         <module>Node4</module>
+        <module>PODModulos/Node1</module>
+        <module>PODModulos/Node2</module>
+        <module>PODModulos/Node3</module>
+        <module>PODModulos/Node4</module>
+        <module>Bus</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
