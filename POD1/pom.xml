@@ -8,6 +8,7 @@
     <modules>
         <module>Bus</module>
         <module>node1</module>
+        <module>node2</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
