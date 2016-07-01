@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpb.pod.node1;
+package br.edu.ifpb.pod.bus;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.ServerSocket;
@@ -47,11 +49,13 @@ public class Servidor {
        _socket.getOutputStream().write(mensagem.getBytes());   
      }
      
-     public String exibeMensagemtexto() throws IOException{
-        _input = _socket.getInputStream();
-        byte[] b = new byte[1024];
-        _input.read(b);
-        return new String(b).trim();
+     public String exibeMensagemtexto() throws IOException, ClassNotFoundException{
+        //_input = _socket.getInputStream();
+        //byte[] b = new byte[1024];
+        //_input.read(b);
+        ObjectInputStream entrada = new ObjectInputStream(_socket.getInputStream());
+        return entrada.readObject().toString();
+        //return new String(b).trim();
      }
      
     private Mensagem montaMensagem(Socket socket) throws IOException {
@@ -59,9 +63,9 @@ public class Servidor {
         //mensagem = new Mensagem());
         Scanner s = new Scanner(socket.getInputStream()).useDelimiter("\\|");
        while (s.hasNext()) {            
-           //retorno.setRemetente(s.next());
-           //retorno.setTopico(s.next());
-             retorno.setTexto(s.next());
+            retorno.setRemetente(s.next());
+            retorno.setTopico(s.next());
+            retorno.setTexto(s.next());
         }
        return retorno;
     }
