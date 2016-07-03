@@ -14,18 +14,13 @@ import java.sql.SQLException;
  */
 public class Main {
    
-    
+    private static Regra reg;
     public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-        /*
-        //Enviando dados de persoa 
-        Person pessoa = new Person(1, "Joe", "35222786");
-        Cliente node1 = new Cliente("10.3.188.193", 1099);
-        node1.enviaMensagem(pessoa.toString());
-        //Cliente node3 = new Cliente("x.x.x.x", 1099);
-        
-*/
+        reg = new Regra();
         Servidor servidor = new Servidor(1071);
-        System.out.println(servidor.exibeMensagemtexto());
+        Mensagem m = servidor.exibeMensagem();
+        String r = reg.registraMensagem(m);
+        servidor.retornaMensagem(r);
         servidor.close();
     }
     

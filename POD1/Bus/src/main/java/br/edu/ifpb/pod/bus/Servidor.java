@@ -50,12 +50,8 @@ public class Servidor {
      }
      
      public String exibeMensagemtexto() throws IOException, ClassNotFoundException{
-        //_input = _socket.getInputStream();
-        //byte[] b = new byte[1024];
-        //_input.read(b);
         ObjectInputStream entrada = new ObjectInputStream(_socket.getInputStream());
         return entrada.readObject().toString();
-        //return new String(b).trim();
      }
      
     private Mensagem montaMensagem(Socket socket) throws IOException {
