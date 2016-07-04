@@ -8,20 +8,21 @@ package br.edu.ifpb.pod.bus;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  *
  * @author laerton
  */
-public class Topico {
+public class Topico extends Observable {
     private List<Mensagem> mensagens;
-    private List<String> inscritos;
+    private List<Assinate> assinates;
     private String nome;
 
     public Topico(String nome) 
     {
-        mensagens = new LinkedList<>();
-        inscritos = new LinkedList<>();
+        mensagens = new LinkedList<Mensagem>();
+        assinates = new LinkedList<Assinate>();
         this.nome = nome;
     }
     /**
@@ -29,21 +30,29 @@ public class Topico {
      */
     public void AddMensagem(Mensagem mensagem){
         mensagens.add(mensagem);
+        setChanged();
+        notifyObservers();
+         
     }
     /**
      * Método adiciona inscritos para o topico
      */
     public void AddInscrito(String inscrito){
-        inscritos.add(inscrito);
+        String[] dados = inscrito.split(";");
+        if (!isInscrito(dados[0])){
+            Assinate a = new Assinate(this, dados[0],dados[1], dados[2]);
+            assinates.add(a);
+        }
     }
     
-    public boolean isInscrito(String inscrito){
-        for (Iterator<String> iterator = inscritos.iterator(); iterator.hasNext();) {
-            if (iterator.next().toUpperCase().equals(inscrito.toUpperCase())){
+    public boolean isInscrito(String nome){
+        for (Iterator<Assinate> iterator = assinates.iterator(); iterator.hasNext();) {
+            Assinate a = iterator.next();
+            if (a.getNode().toUpperCase().equals(nome.toUpperCase())){
                 return true;
             }
         }
-        return  false;
+        return false;
     }
     
     /**
@@ -61,4 +70,15 @@ public class Topico {
         return  retorno;
     }
     
+    public Mensagem getUltimaMensagem (){
+        if (mensagens.size()>0){
+            return mensagens.get(mensagens.size()-1);
+        }
+        return new Mensagem("Bus", "", "Não há mensagens.");
+                
+    }
+    
+    public List<Assinate> getAssinates(){
+        return assinates;
+    }
 }

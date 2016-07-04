@@ -6,6 +6,10 @@
 package br.edu.ifpb.pod.bus;
 
 import com.sun.org.apache.bcel.internal.generic.Select;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -13,8 +17,11 @@ import com.sun.org.apache.bcel.internal.generic.Select;
  */
 public class Regra {
     private Topico topico1, topico2, topico3;
-
-    public Regra() {
+    private Servidor s;
+    private Cliente c;
+    
+    public Regra(Servidor s) {
+        this.s = s;
         topico1 = new Topico("TOPICO1");
         topico2 = new Topico("TOPICO2");
         topico3 = new Topico("TOPICO3");
@@ -23,30 +30,33 @@ public class Regra {
      * Método recebe a mensagem e efetua o registro da mesma no tópico correspondente,
      * caso seja uma inscrição a mesma trata a inscrição.
      */
-    public String registraMensagem(Mensagem mensagem){
+    public void registraMensagem(Mensagem mensagem) throws IOException{
         if (mensagem.getTexto().toUpperCase().equals("REGISTRO")){
             addInscricao(mensagem);
-            return "Registro realizado com sucesso!";
+            
         }else if (mensagem.getTexto().toUpperCase().equals("REQUISITAR")){
-            return getMensagens(mensagem.getRemetente());
+            s.retornaMensagem(getMensagens(mensagem.getRemetente()));
         }else{
             addMensagem(mensagem);
-            return "Mensagem lançada com sucesso!";
+            
         }
     }
     /**
      * Método adiciona uma mensagem ao respectivo tópico a que ela destina.
      */
-    private void addMensagem(Mensagem mensagem){
+    private void addMensagem(Mensagem mensagem) throws IOException{
         switch (mensagem.getTopico().toUpperCase()){
             case "TOPICO1":
                 topico1.AddMensagem(mensagem);
+                update(topico1);
                 break;
             case "TOPICO2":
                 topico2.AddMensagem(mensagem);
+                update(topico2);
                 break;
             case "TOPICO3":
                 topico3.AddMensagem(mensagem);
+                update(topico3);
                 break;
                 
         }
@@ -55,16 +65,19 @@ public class Regra {
     /**
      * Método faz inscrição de membro a um tópico.
      */
-    private void addInscricao(Mensagem mensagem){
+    private void addInscricao(Mensagem mensagem) throws IOException{
         switch (mensagem.getTopico().toUpperCase()){
             case "TOPICO1":
                 topico1.AddInscrito(mensagem.getRemetente());
+                s.retornaMensagem("Registro realizado com sucesso no Topico1!" + topico1.getStringMensagens()); ;
                 break;
             case "TOPICO2":
                 topico2.AddInscrito(mensagem.getRemetente());
+                s.retornaMensagem("Registro realizado com sucesso no Topico2!" + topico2.getStringMensagens()); ;
                 break;
             case "TOPICO3":
                 topico3.AddInscrito(mensagem.getRemetente());
+                s.retornaMensagem("Registro realizado com sucesso no Topico3!" + topico3.getStringMensagens()); ;
                 break;
                 
         }
@@ -106,4 +119,16 @@ public class Regra {
         }
         return "";
     }
+
+    private void update(Topico topico) throws IOException {
+         LinkedList<Assinate> lista =  (LinkedList<Assinate>) topico.getAssinates();
+         for (Iterator<Assinate> iterator = lista.iterator(); iterator.hasNext();) {
+            Assinate next = iterator.next();
+            next.update(topico, s);
+            c = new Cliente(next.getIP(),Integer.parseInt(next.getPorta()) );
+            c.enviaMensagem(next.getMensagem().toString());
+        }
+    }
+
+    
 }

@@ -5,21 +5,32 @@
  */
 package br.edu.ifpb.pod.node1;
 
-import com.sun.xml.internal.ws.developer.Serialization;
+
 
 /**
  *
  * @author laerton
  */
-
 public class Mensagem {
-    private String texto;
-    private final String remetente = "NODE1";
-    private final String  topico = "TOPICO1";
 
-    public Mensagem(){
-        
+    private String texto;
+    private String ip;
+    private String porta;
+    private final String remetente = "NODE1";
+    private final String topico = "TOPICO1";
+
+    public Mensagem(String texto, String ip, String porta) {
+        this.texto = texto;
+        this.ip = ip;
+        this.porta = porta;
     }
+    
+    public Mensagem(){
+        this.texto = "";
+        this.ip = "";
+        this.porta = "";
+    }
+    
     public String getTexto() {
         return texto;
     }
@@ -36,18 +47,11 @@ public class Mensagem {
         return topico;
     }
 
-    
-    
     @Override
-    public String toString(){
-        return remetente + ";" + topico + ";" + texto ;
-    }
-
-    public Mensagem(  String texto) {
-        this.texto = texto;
+    public String toString() {
+        return remetente+";"+ip+";"+ porta + "|" + topico + "|" + texto;
     }
 
     
-    
-    
+
 }

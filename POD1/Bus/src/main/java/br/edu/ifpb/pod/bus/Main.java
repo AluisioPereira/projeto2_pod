@@ -6,6 +6,8 @@
 package br.edu.ifpb.pod.bus;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.sql.SQLException;
 
 /**
@@ -16,12 +18,21 @@ public class Main {
    
     private static Regra reg;
     public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-        reg = new Regra();
-        Servidor servidor = new Servidor(1071);
-        Mensagem m = servidor.exibeMensagem();
-        String r = reg.registraMensagem(m);
-        servidor.retornaMensagem(r);
-        servidor.close();
+        ServerSocket s = null;
+        
+        try {
+            s = new ServerSocket(1071);
+            
+            while (true) {
+                Socket conex = s.accept();
+                Thread t = new Servidor(conex);
+                t.start();
+                
+            }
+        } catch (Exception e) {
+        
+        }
+        
     }
     
 }

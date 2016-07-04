@@ -6,6 +6,7 @@
 package br.edu.ifpb.pod.node1;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.sql.SQLException;
 
 /**
@@ -25,10 +26,13 @@ public class Main {
         
         
 */
-        Mensagem men = new Mensagem("teste");
-        Cliente cliente = new Cliente("localhost", 1071);
-        cliente.enviaMensagem(men);
-        cliente.close();
+        try {
+            Socket conex = new Socket("localhost", 1071);
+            Thread t = new Cliente(conex);
+            t.start();
+        } catch (Exception e) {
+        }
+        
     }
     
 }

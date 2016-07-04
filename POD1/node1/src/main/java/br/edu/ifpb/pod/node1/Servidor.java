@@ -56,11 +56,9 @@ public class Servidor {
      
     private Mensagem montaMensagem(Socket socket) throws IOException {
         Mensagem retorno = new Mensagem();
-        //mensagem = new Mensagem());
+        
         Scanner s = new Scanner(socket.getInputStream()).useDelimiter("\\|");
        while (s.hasNext()) {            
-           //retorno.setRemetente(s.next());
-           //retorno.setTopico(s.next());
              retorno.setTexto(s.next());
         }
        return retorno;

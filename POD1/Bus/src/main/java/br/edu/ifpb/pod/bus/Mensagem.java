@@ -5,7 +5,7 @@
  */
 package br.edu.ifpb.pod.bus;
 
-import com.sun.xml.internal.ws.developer.Serialization;
+
 
 /**
  *
@@ -46,7 +46,7 @@ public class Mensagem {
     
     @Override
     public String toString(){
-        return remetente + ";" + topico + ";" + texto ;
+        return remetente + "|" + topico + "|" + texto ;
     }
 
     public Mensagem( String remetente, String topico, String texto) {
