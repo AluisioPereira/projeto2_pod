@@ -13,16 +13,17 @@ package br.edu.ifpb.pod.node1;
  */
 public class Mensagem {
 
-    private String texto;
-    private String ip;
-    private String porta;
-    private final String remetente = "NODE1";
-    private final String topico = "TOPICO1";
+    protected String texto;
+    protected String ip;
+    protected String porta;
+    protected final String remetente = "NODE1";
+    protected String topico ;
 
     public Mensagem(String texto, String ip, String porta) {
         this.texto = texto;
         this.ip = ip;
         this.porta = porta;
+        topico= "TOPICO1";
     }
     
     public Mensagem(){

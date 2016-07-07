@@ -27,6 +27,12 @@ public class Main {
                 Socket conex = s.accept();
                 Thread t = new Servidor(conex);
                 t.start();
+                t.sleep(500);
+                
+                Servidor serv = (Servidor)t;
+                reg = new Regra(serv);
+                serv.retornaMensagem("Retorno");
+                //reg = ((Servidor)t).getRegra();
                 
             }
         } catch (Exception e) {

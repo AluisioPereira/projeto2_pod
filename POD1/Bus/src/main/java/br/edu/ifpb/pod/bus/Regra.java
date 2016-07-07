@@ -19,6 +19,14 @@ public class Regra {
     private Topico topico1, topico2, topico3;
     private Servidor s;
     private Cliente c;
+
+    public Servidor getServidor() {
+        return s;
+    }
+
+    public void setServidor(Servidor s) {
+        this.s = s;
+    }
     
     public Regra(Servidor s) {
         this.s = s;
@@ -26,6 +34,7 @@ public class Regra {
         topico2 = new Topico("TOPICO2");
         topico3 = new Topico("TOPICO3");
     }
+
     /**
      * Método recebe a mensagem e efetua o registro da mesma no tópico correspondente,
      * caso seja uma inscrição a mesma trata a inscrição.
@@ -33,12 +42,13 @@ public class Regra {
     public void registraMensagem(Mensagem mensagem) throws IOException{
         if (mensagem.getTexto().toUpperCase().equals("REGISTRO")){
             addInscricao(mensagem);
-            
+            s.retornaMensagem("Node registrado com sucesso!");
         }else if (mensagem.getTexto().toUpperCase().equals("REQUISITAR")){
+            s.retornaMensagem("Segue as mensagens requisitadas");
             s.retornaMensagem(getMensagens(mensagem.getRemetente()));
         }else{
             addMensagem(mensagem);
-            
+            s.retornaMensagem("Mensagem registrada com sucesso!");
         }
     }
     /**

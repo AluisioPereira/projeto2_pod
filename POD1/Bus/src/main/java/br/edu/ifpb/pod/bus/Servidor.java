@@ -26,7 +26,7 @@ public class Servidor extends Thread{
     private Socket _socket;
     private InputStream _input;
     private Mensagem mensagem;
-    
+    private final Regra reg = new Regra(this);
     public Servidor(int porta) throws IOException{
         _serverSocket = new ServerSocket();
         this._porta = new InetSocketAddress(porta);
@@ -36,12 +36,14 @@ public class Servidor extends Thread{
         
      }
     
+    public Regra getRegra(){return  this.reg;}
+    
     public void close() throws IOException{
         _socket.close();
     }
     
 
-    Servidor(Socket conex) {
+   public Servidor(Socket conex) {
         _socket = conex;
         System.out.println("Server : cliente conectado...");
     }
@@ -75,17 +77,18 @@ public class Servidor extends Thread{
     
     @Override
     public void run(){
+        
         try {
-            Regra reg = new Regra(this);
+            
+            //reg = new Regra(this);
             Mensagem m = exibeMensagem();
             reg.registraMensagem(m);
             System.out.println(m.toString());
-            retornaMensagem("recebido");
-            //close();
-            
+            //this.retornaMensagem("teste");
             
         } catch (IOException ex) {
             Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 }
