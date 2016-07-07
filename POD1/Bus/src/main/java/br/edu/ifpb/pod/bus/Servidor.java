@@ -3,26 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpb.pod.node1;
+package br.edu.ifpb.pod.bus;
+
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.ServerSocket;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author laerton
  */
-public class Servidor {
+public class Servidor extends Thread{
     private ServerSocket _serverSocket;
     private InetSocketAddress _porta;
     private Socket _socket;
     private InputStream _input;
     private Mensagem mensagem;
-    
+    private final Regra reg = new Regra(this);
     public Servidor(int porta) throws IOException{
         _serverSocket = new ServerSocket();
         this._porta = new InetSocketAddress(porta);
@@ -31,11 +35,18 @@ public class Servidor {
         System.out.println("Server : cliente conectado...");
         
      }
-     
+    
+    public Regra getRegra(){return  this.reg;}
+    
     public void close() throws IOException{
         _socket.close();
     }
-     
+    
+
+   public Servidor(Socket conex) {
+        _socket = conex;
+        System.out.println("Server : cliente conectado...");
+    }
     
      public Mensagem exibeMensagem() throws IOException
      {
@@ -44,19 +55,17 @@ public class Servidor {
      
      public void retornaMensagem(String mensagem) throws IOException
      {
-       _socket.getOutputStream().write(mensagem.getBytes());   
+        _socket.getOutputStream().write(mensagem.getBytes());
+        _socket.getOutputStream().flush();
      }
      
-     public String exibeMensagemtexto() throws IOException{
-        _input = _socket.getInputStream();
-        byte[] b = new byte[1024];
-        _input.read(b);
-        return new String(b).trim();
+     public String exibeMensagemtexto() throws IOException, ClassNotFoundException{
+        ObjectInputStream entrada = new ObjectInputStream(_socket.getInputStream());
+        return entrada.readObject().toString();
      }
      
     private Mensagem montaMensagem(Socket socket) throws IOException {
         Mensagem retorno = new Mensagem();
-        //mensagem = new Mensagem());
         Scanner s = new Scanner(socket.getInputStream()).useDelimiter("\\|");
        while (s.hasNext()) {            
             retorno.setRemetente(s.next());
@@ -64,5 +73,22 @@ public class Servidor {
             retorno.setTexto(s.next());
         }
        return retorno;
+    }
+    
+    @Override
+    public void run(){
+        
+        try {
+            
+            //reg = new Regra(this);
+            Mensagem m = exibeMensagem();
+            reg.registraMensagem(m);
+            System.out.println(m.toString());
+            //this.retornaMensagem("teste");
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }
