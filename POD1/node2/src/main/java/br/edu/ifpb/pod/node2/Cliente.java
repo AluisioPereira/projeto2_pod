@@ -25,7 +25,7 @@ public class Cliente extends Thread {
         this.socket = conex;
     }
 
-    public void enviarMensagemT2(MensagemT2 msgT2) throws IOException {
+    public void enviarMensagemT2(Mensagem msgT2) throws IOException {
         enviarMensagem(msgT2.toString());
     }
 
@@ -56,7 +56,7 @@ public class Cliente extends Thread {
             /**
              * teste para mensagem enviada a topico2
              */
-            MensagemT2 msgt2 = new MensagemT2("teste", "localhost", "1072");
+            Mensagem msgt2 = new Mensagem("teste", "localhost", "1072");
             enviarMensagemT2(msgt2);
             String mensagem2 = recebeMensagem();
             System.out.println(mensagem2);

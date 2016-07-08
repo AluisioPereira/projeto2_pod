@@ -10,9 +10,4 @@ public class MensagemT3 extends Mensagem {
         super(texto, ip, porta);
         topico = "TOPICO3";
     }
-
-    @Override
-    public String toString() {
-        return remetente + ";" + ip + ";" + porta + "|" + topico + "|" + texto;
-    }
 }

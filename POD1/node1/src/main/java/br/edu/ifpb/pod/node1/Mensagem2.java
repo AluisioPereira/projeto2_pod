@@ -9,15 +9,15 @@ package br.edu.ifpb.pod.node1;
  *
  * @author Laerton
  */
-public class Mensagem2 extends Mensagem{
-    
-        
-    public Mensagem2(String texto, String ip, String porta){
-        super(texto,ip,porta);
+public class Mensagem2 extends Mensagem {
+
+    public Mensagem2(String texto, String ip, String porta) {
+        super(texto, ip, porta);
         topico = "TOPICO2";
     }
+
     @Override
     public String toString() {
-        return remetente+";"+ip+";"+ porta + "|" + topico + "|" + texto;
+        return remetente + ";" + ip + ";" + porta + "|" + topico + "|" + texto;
     }
 }

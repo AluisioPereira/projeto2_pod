@@ -16,6 +16,7 @@ public class Mensagem {
         this.texto = texto;
         this.ip = ip;
         this.porta = porta;
+        topico = "TOPICO2";
     }
 
     public Mensagem() {
