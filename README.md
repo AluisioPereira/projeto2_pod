@@ -1,5 +1,5 @@
 2º PROJETO POD 2016.1 - ADS-Cajazeiras.
-<<<<<<< HEAD
+
 FLUXO DE TRABALHO A SER SEGUIDO
 
 1- clone esse repositório
@@ -42,8 +42,4 @@ git push origin bNOME_DA_SUA_BRANCH
 
 8- Sempre repita os passos 5 e 6 antes de realizar mudanças. Isso ajuda a evitar conflitos
 
-                            1c5edc679b34f3103ae4e09404f8ec6f48584142
-
-https://drive.google.com/drive/u/1/shared-with-me
-<<<<<<< HEAD
 
