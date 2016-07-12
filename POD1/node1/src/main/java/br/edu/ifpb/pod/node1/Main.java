@@ -21,11 +21,12 @@ public class Main {
         
         try {
             Socket conex = new Socket("localhost", 1071);
-            Thread t = new Cliente(conex);
+            Thread t = new ClienteOld(conex);
             t.start();
             t.sleep(500);
-            System.err.println(((Cliente)t).recebeMensagem());
-            
+            System.err.println(((ClienteOld)t).recebeMensagem());
+            conex.close();
+
         } catch (Exception e) {
         }
         

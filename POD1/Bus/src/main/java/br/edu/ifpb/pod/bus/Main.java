@@ -5,7 +5,10 @@
  */
 package br.edu.ifpb.pod.bus;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -16,29 +19,11 @@ import java.sql.SQLException;
  */
 public class Main {
    
-    private static Regra reg;
+    //private static Regra reg = new Regra();
+    
     public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-        ServerSocket s = null;
         
-        try {
-            s = new ServerSocket(1071);
-            
-            while (true) {
-                Socket conex = s.accept();
-                Thread t = new Servidor(conex);
-                t.start();
-                t.sleep(500);
-                
-                Servidor serv = (Servidor)t;
-                reg = new Regra(serv);
-                serv.retornaMensagem("Retorno");
-                //reg = ((Servidor)t).getRegra();
-                
-            }
-        } catch (Exception e) {
-        
-        }
-        
+       
     }
     
 }
