@@ -1,9 +1,11 @@
+package br.edu.ifpb.pod.node2;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpb.pod.node1;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,9 +55,10 @@ public class Cliente {
         Scanner teclado = new Scanner(System.in);
 
         PrintStream saida = new PrintStream(cliente.getOutputStream());
-        Mensagem m = new Mensagem("Laerton", host, String.valueOf(porta));
-        
+        MenTopico2 m = new MenTopico2("Laerton sei lá", host, String.valueOf(porta));
+        MenTopico3 m3 = new MenTopico3("Laerton oi de novo", host, String.valueOf(porta));
         saida.println(m.toString());
+        saida.println(m3.toString());
         Thread.sleep(3000);
         cliente.close();
         

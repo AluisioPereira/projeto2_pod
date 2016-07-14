@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpb.pod.node1;
+package br.edu.ifpb.pod.node4;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,14 +50,13 @@ public class Cliente {
         new Thread(r).start();
 
         // lê msgs do teclado e manda pro servidor
-        Scanner teclado = new Scanner(System.in);
-
-        PrintStream saida = new PrintStream(cliente.getOutputStream());
-        Mensagem m = new Mensagem("Laerton", host, String.valueOf(porta));
         
-        saida.println(m.toString());
-        Thread.sleep(3000);
-        cliente.close();
+        PrintStream saida = new PrintStream(cliente.getOutputStream());
+        Mensagem m2 = new MRTopico2(host, String.valueOf(porta));
+        Mensagem m3 = new MRTopico3(host, String.valueOf(porta));
+        saida.println(m2.toString());
+        saida.println(m3.toString());
+        
         
     }
 

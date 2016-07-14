@@ -1,20 +1,22 @@
+package br.edu.ifpb.pod.node2;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpb.pod.node1;
+
 
 /**
  *
  * @author Laerton
  */
-public class Mensagem2 extends Mensagem{
+public class MenTopico3 extends MenTopico2{
     
         
-    public Mensagem2(String texto, String ip, String porta){
+    public MenTopico3(String texto, String ip, String porta){
         super(texto,ip,porta);
-        topico = "TOPICO2";
+        topico = "TOPICO3";
     }
     @Override
     public String toString() {

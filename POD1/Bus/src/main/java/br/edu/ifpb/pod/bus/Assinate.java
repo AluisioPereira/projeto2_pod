@@ -5,6 +5,7 @@
  */
 package br.edu.ifpb.pod.bus;
 
+import java.io.PrintStream;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -20,6 +21,7 @@ public class Assinate implements Observer{
     private String node;
     private String IP;
     private String porta;
+    private PrintStream ps;
 
     public String getIP() {
         return IP;
@@ -37,12 +39,13 @@ public class Assinate implements Observer{
         this.porta = porta;
     }
     
-    public Assinate(Observable TopicoObservable, String node, String IP, String porta) {
+    public Assinate(Observable TopicoObservable, String node, String IP, String porta, PrintStream ps) {
         this.TopicoObservable = TopicoObservable;
         this.node = node;
         this.IP = IP;
         this.porta = porta;
         TopicoObservable.addObserver(this);
+        this.ps = ps;
         
     }
     
@@ -51,6 +54,7 @@ public class Assinate implements Observer{
         if (o instanceof Topico){
             Topico t = (Topico) o;
             m = t.getUltimaMensagem();
+            ps.println(m.getTopico() + "!" + m.getDataHora() + "!Publicado por: " + m.getRemetente().split(";")[0] + "!Mensagem: " + m.getTexto() + "!");
         }
     }
     

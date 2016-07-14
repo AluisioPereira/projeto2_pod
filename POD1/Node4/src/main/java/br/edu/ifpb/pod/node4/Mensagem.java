@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpb.pod.node1;
+package br.edu.ifpb.pod.node4;
 
 
 
@@ -16,20 +16,21 @@ public class Mensagem {
     protected String texto;
     protected String ip;
     protected String porta;
-    protected final String remetente = "NODE1";
+    protected String remetente;
     protected String topico ;
 
     public Mensagem(String texto, String ip, String porta) {
         this.texto = texto;
         this.ip = ip;
         this.porta = porta;
-        topico= "TOPICO1";
+        this.remetente = "NODE4";
     }
     
     public Mensagem(){
         this.texto = "";
         this.ip = "";
         this.porta = "";
+        this.remetente = "NODE4";
     }
     
     public String getTexto() {

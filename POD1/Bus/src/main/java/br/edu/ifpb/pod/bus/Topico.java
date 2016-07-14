@@ -5,6 +5,7 @@
  */
 package br.edu.ifpb.pod.bus;
 
+import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,17 +31,15 @@ public class Topico extends Observable {
      */
     public void AddMensagem(Mensagem mensagem){
         mensagens.add(mensagem);
-        setChanged();
         notifyObservers();
-         
     }
     /**
      * Método adiciona inscritos para o topico
      */
-    public void AddInscrito(String inscrito){
+    public void AddInscrito(String inscrito, PrintStream ps){
         String[] dados = inscrito.split(";");
         if (!isInscrito(dados[0])){
-            Assinate a = new Assinate(this, dados[0],dados[1], dados[2]);
+            Assinate a = new Assinate(this, dados[0],dados[1], dados[2], ps);
             assinates.add(a);
         }
     }
@@ -63,8 +62,10 @@ public class Topico extends Observable {
         if (mensagens.size()== 0)   {
             return  "Não exite mensagens para " + this.nome;
         }
+        retorno = mensagens.get(0).getTopico() + "!";
         for (Iterator<Mensagem> iterator = mensagens.iterator(); iterator.hasNext();) {
-            retorno +=  iterator.next().toString();
+            Mensagem m = iterator.next();
+            retorno +=  m.getDataHora() + "!Publicado por: " + m.getRemetente().split(";")[0] + "!Mensagem: " + m.getTexto() + "!";
             
         }
         return  retorno;

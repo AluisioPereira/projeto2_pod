@@ -1,9 +1,11 @@
+package br.edu.ifpb.pod.node2;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpb.pod.node1;
+
 
 
 
@@ -11,22 +13,22 @@ package br.edu.ifpb.pod.node1;
  *
  * @author laerton
  */
-public class Mensagem {
+public class MenTopico2 {
 
     protected String texto;
     protected String ip;
     protected String porta;
-    protected final String remetente = "NODE1";
+    protected final String remetente = "NODE2";
     protected String topico ;
 
-    public Mensagem(String texto, String ip, String porta) {
+    public MenTopico2(String texto, String ip, String porta) {
         this.texto = texto;
         this.ip = ip;
         this.porta = porta;
-        topico= "TOPICO1";
+        topico= "TOPICO2";
     }
     
-    public Mensagem(){
+    public MenTopico2(){
         this.texto = "";
         this.ip = "";
         this.porta = "";

@@ -5,6 +5,10 @@
  */
 package br.edu.ifpb.pod.bus;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 
 
 /**
@@ -16,9 +20,11 @@ public class Mensagem {
     private String texto;
     private String remetente;
     private String topico;
-
+    private LocalDate data;
+    private LocalTime time;
     public Mensagem(){
-        
+        data = LocalDate.now();
+        time = LocalTime.now();
     }
     public String getTexto() {
         return texto;
@@ -44,9 +50,13 @@ public class Mensagem {
         this.topico = nome;
     }
     
+    public String getDataHora(){
+        return "Data: " + data.toString() + " Hora: "+ time.toString();
+                
+    }
     @Override
     public String toString(){
-        return remetente + "|" + topico + "|" + texto ;
+        return remetente + ":" + topico + ":" + texto ;
     }
 
     public Mensagem( String remetente, String topico, String texto) {

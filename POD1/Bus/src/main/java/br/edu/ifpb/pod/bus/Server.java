@@ -22,7 +22,7 @@ public class Server {
 
     private Regra reg = new Regra();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         // inicia o servidor
         new Server(12345).executa();
@@ -31,6 +31,7 @@ public class Server {
 
     private int porta;
     private List<PrintStream> clientes;
+    private PrintStream ps;
 
     public Server(int porta) {
         this.porta = porta;
@@ -38,10 +39,9 @@ public class Server {
 
     }
 
-    public void executa() throws IOException {
+    public void executa() throws IOException, InterruptedException {
 
         ServerSocket servidor = new ServerSocket(this.porta);
-
         System.out.println("Porta 12345 aberta!");
 
         while (true) {
@@ -53,39 +53,33 @@ public class Server {
             );
 
             // adiciona saida do cliente à lista
-            PrintStream ps = new PrintStream(cliente.getOutputStream());
-
-            this.clientes.add(ps);
+            ps = new PrintStream(cliente.getOutputStream());
             TrataMensagem tc
                     = new TrataMensagem(cliente.getInputStream(), this);
 
             new Thread(tc).start();
-
+            Thread.sleep(3000);
         }
 
     }
 
     public String registraMensagem(String msg) throws IOException {
         Mensagem m = new Mensagem();
-        String[] as = msg.split("|");
+        String[] as = msg.split(":");
+
+        m.setRemetente(as[0]);
+        m.setTopico(as[1]);
+        m.setTexto(as[2]);
+
+        String r = this.reg.registraMensagem(m, this.ps);
         
-            m.setRemetente(as[0]);
-            m.setTopico(as[1]);
-            m.setTexto(as[2]);
-        
-        String r = this.reg.registraMensagem(m);
-        System.out.println(this.reg.getTopico1().getStringMensagens());
         return r;
     }
 
     public void distribuiMensagem(String msg) throws IOException {
         // envia msg para todo mundo
-        System.out.println(msg.toString());
-        
-        for (PrintStream cliente : this.clientes) {
-            
-            cliente.println(registraMensagem(msg));
-        }
+        ps.println(registraMensagem(msg));
+        //}
 
     }
 

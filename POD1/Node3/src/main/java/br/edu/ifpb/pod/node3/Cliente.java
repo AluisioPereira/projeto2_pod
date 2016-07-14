@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifpb.pod.node1;
+package br.edu.ifpb.pod.node3;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,21 +43,20 @@ public class Cliente {
         Socket cliente = new Socket(this.host, this.porta);
 
         System.out.println("O cliente se conectou ao servidor!");
-
+        
+        PrintStream saida = new PrintStream(cliente.getOutputStream());
+        Mensagem m = new MensagemRegistra(host, String.valueOf(porta));
+        saida.println(m.toString());
         // thread para receber mensagens do servidor
         Recebedor r = new Recebedor(cliente.getInputStream());
 
         new Thread(r).start();
 
         // lê msgs do teclado e manda pro servidor
-        Scanner teclado = new Scanner(System.in);
-
-        PrintStream saida = new PrintStream(cliente.getOutputStream());
-        Mensagem m = new Mensagem("Laerton", host, String.valueOf(porta));
         
-        saida.println(m.toString());
-        Thread.sleep(3000);
-        cliente.close();
+
+        
+        
         
     }
 

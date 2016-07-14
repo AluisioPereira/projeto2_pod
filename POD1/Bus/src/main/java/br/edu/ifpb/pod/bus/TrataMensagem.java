@@ -26,7 +26,6 @@ public class TrataMensagem implements Runnable {
     public TrataMensagem(InputStream cliente, Server servidor) {
 
         this.cliente = cliente;
-
         this.servidor = servidor;
 
     }
@@ -46,24 +45,13 @@ public class TrataMensagem implements Runnable {
             try {
                 m = s.nextLine();
                 servidor.distribuiMensagem(m);
-                System.out.println(m);
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
            }
            
            s.close();
-        /*Mensagem m = new Mensagem();
-        Scanner s = new Scanner(cliente).useDelimiter("\\|");
-        while (s.hasNext()) {
-            m.setRemetente(s.next());
-            m.setTopico(s.next());
-            m.setTexto(s.next());
-        }*/
-        
-        //servidor.distribuiMensagem(m);
-        //s.close();
-
+   
     }
 
 }

@@ -7,6 +7,7 @@ package br.edu.ifpb.pod.bus;
 
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,9 +30,9 @@ public class Regra {
      * Método recebe a mensagem e efetua o registro da mesma no tópico correspondente,
      * caso seja uma inscrição a mesma trata a inscrição.
      */
-    public String registraMensagem(Mensagem mensagem) throws IOException{
+    public String registraMensagem(Mensagem mensagem, PrintStream ps) throws IOException{
         if (mensagem.getTexto().toUpperCase().equals("REGISTRO")){
-            return addInscricao(mensagem);
+            return addInscricao(mensagem, ps);
              
         }else if (mensagem.getTexto().toUpperCase().equals("REQUISITAR")){
             
@@ -58,6 +59,7 @@ public class Regra {
                 topico3.AddMensagem(mensagem);
                 update(topico3);
                 break;
+            
                 
         }
                
@@ -66,19 +68,19 @@ public class Regra {
     /**
      * Método faz inscrição de membro a um tópico.
      */
-    private String addInscricao(Mensagem mensagem) throws IOException{
+    private String addInscricao(Mensagem mensagem, PrintStream ps) throws IOException{
         String retorno = "";
         switch (mensagem.getTopico().toUpperCase()){
             case "TOPICO1":
-                topico1.AddInscrito(mensagem.getRemetente());
+                topico1.AddInscrito(mensagem.getRemetente(), ps);
                 retorno = ("Registro realizado com sucesso no Topico1!" + topico1.getStringMensagens()); 
                 break;
             case "TOPICO2":
-                topico2.AddInscrito(mensagem.getRemetente());
+                topico2.AddInscrito(mensagem.getRemetente(),ps);
                 retorno = ("Registro realizado com sucesso no Topico2!" + topico2.getStringMensagens()); ;
                 break;
             case "TOPICO3":
-                topico3.AddInscrito(mensagem.getRemetente());
+                topico3.AddInscrito(mensagem.getRemetente(),ps);
                 retorno = ("Registro realizado com sucesso no Topico3!" + topico3.getStringMensagens()); ;
                 break;
                 
@@ -123,14 +125,14 @@ public class Regra {
         return "";
     }
 
-    private void update(Topico topico) throws IOException {
+    private void update(Topico topico ) throws IOException {
          
         LinkedList<Assinate> lista =  (LinkedList<Assinate>) topico.getAssinates();
+        
          for (Iterator<Assinate> iterator = lista.iterator(); iterator.hasNext();) {
             Assinate next = iterator.next();
             next.update(topico, null);
-            Clienteold c = new Clienteold(next.getIP(),Integer.parseInt(next.getPorta()) );
-            c.enviaMensagem(next.getMensagem().toString());
+             
         }
     }
 
