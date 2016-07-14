@@ -8,16 +8,10 @@
     <modules>
         <module>Bus</module>
         <module>node1</module>
-<<<<<<< HEAD
-        <module>node2</module>
-        <module>node3</module>
-        <module>node4</module>
-=======
         <module>../../../../../NetBeansProjects/Node3</module>
         <module>Node2</module>
         <module>Node4</module>
         <module>Node3</module>
->>>>>>> master
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

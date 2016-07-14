@@ -50,11 +50,7 @@ public class Mensagem {
 
     @Override
     public String toString() {
-<<<<<<< HEAD
-        return remetente+";"+ip+";"+ porta + "|" + topico + "|" + texto;
-=======
         return remetente+";"+ip+";"+ porta + ":" + topico + ":" + texto;
->>>>>>> master
     }
 
     
