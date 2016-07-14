@@ -5,6 +5,10 @@
  */
 package br.edu.ifpb.pod.bus;
 
+<<<<<<< HEAD
+=======
+import java.io.PrintStream;
+>>>>>>> master
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,17 +34,28 @@ public class Topico extends Observable {
      */
     public void AddMensagem(Mensagem mensagem){
         mensagens.add(mensagem);
+<<<<<<< HEAD
         setChanged();
         notifyObservers();
          
+=======
+        notifyObservers();
+>>>>>>> master
     }
     /**
      * Método adiciona inscritos para o topico
      */
+<<<<<<< HEAD
     public void AddInscrito(String inscrito){
         String[] dados = inscrito.split(";");
         if (!isInscrito(dados[0])){
             Assinate a = new Assinate(this, dados[0],dados[1], dados[2]);
+=======
+    public void AddInscrito(String inscrito, PrintStream ps){
+        String[] dados = inscrito.split(";");
+        if (!isInscrito(dados[0])){
+            Assinate a = new Assinate(this, dados[0],dados[1], dados[2], ps);
+>>>>>>> master
             assinates.add(a);
         }
     }
@@ -63,8 +78,15 @@ public class Topico extends Observable {
         if (mensagens.size()== 0)   {
             return  "Não exite mensagens para " + this.nome;
         }
+<<<<<<< HEAD
         for (Iterator<Mensagem> iterator = mensagens.iterator(); iterator.hasNext();) {
             retorno +=  iterator.next().toString();
+=======
+        retorno = mensagens.get(0).getTopico() + "!";
+        for (Iterator<Mensagem> iterator = mensagens.iterator(); iterator.hasNext();) {
+            Mensagem m = iterator.next();
+            retorno +=  m.getDataHora() + "!Publicado por: " + m.getRemetente().split(";")[0] + "!Mensagem: " + m.getTexto() + "!";
+>>>>>>> master
             
         }
         return  retorno;

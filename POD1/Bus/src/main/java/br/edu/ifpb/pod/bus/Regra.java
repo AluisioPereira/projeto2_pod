@@ -5,8 +5,14 @@
  */
 package br.edu.ifpb.pod.bus;
 
+<<<<<<< HEAD
 import com.sun.org.apache.bcel.internal.generic.Select;
 import java.io.IOException;
+=======
+
+import java.io.IOException;
+import java.io.PrintStream;
+>>>>>>> master
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +23,7 @@ import java.util.List;
  */
 public class Regra {
     private Topico topico1, topico2, topico3;
+<<<<<<< HEAD
     private Servidor s;
     private Cliente c;
 
@@ -30,6 +37,11 @@ public class Regra {
     
     public Regra(Servidor s) {
         this.s = s;
+=======
+    
+    public Regra() {
+       
+>>>>>>> master
         topico1 = new Topico("TOPICO1");
         topico2 = new Topico("TOPICO2");
         topico3 = new Topico("TOPICO3");
@@ -39,6 +51,7 @@ public class Regra {
      * Método recebe a mensagem e efetua o registro da mesma no tópico correspondente,
      * caso seja uma inscrição a mesma trata a inscrição.
      */
+<<<<<<< HEAD
     public void registraMensagem(Mensagem mensagem) throws IOException{
         if (mensagem.getTexto().toUpperCase().equals("REGISTRO")){
             addInscricao(mensagem);
@@ -49,6 +62,18 @@ public class Regra {
         }else{
             addMensagem(mensagem);
             s.retornaMensagem("Mensagem registrada com sucesso!");
+=======
+    public String registraMensagem(Mensagem mensagem, PrintStream ps) throws IOException{
+        if (mensagem.getTexto().toUpperCase().equals("REGISTRO")){
+            return addInscricao(mensagem, ps);
+             
+        }else if (mensagem.getTexto().toUpperCase().equals("REQUISITAR")){
+            
+            return "Segue as mensagens requisitadas " + (getMensagens(mensagem.getRemetente()));
+        }else{
+            addMensagem(mensagem);
+            return "Mensagem registrada com sucesso!";
+>>>>>>> master
         }
     }
     /**
@@ -68,10 +93,15 @@ public class Regra {
                 topico3.AddMensagem(mensagem);
                 update(topico3);
                 break;
+<<<<<<< HEAD
+=======
+            
+>>>>>>> master
                 
         }
                
     }
+<<<<<<< HEAD
     /**
      * Método faz inscrição de membro a um tópico.
      */
@@ -91,6 +121,30 @@ public class Regra {
                 break;
                 
         }
+=======
+    public Topico getTopico1(){return topico1;}
+    /**
+     * Método faz inscrição de membro a um tópico.
+     */
+    private String addInscricao(Mensagem mensagem, PrintStream ps) throws IOException{
+        String retorno = "";
+        switch (mensagem.getTopico().toUpperCase()){
+            case "TOPICO1":
+                topico1.AddInscrito(mensagem.getRemetente(), ps);
+                retorno = ("Registro realizado com sucesso no Topico1!" + topico1.getStringMensagens()); 
+                break;
+            case "TOPICO2":
+                topico2.AddInscrito(mensagem.getRemetente(),ps);
+                retorno = ("Registro realizado com sucesso no Topico2!" + topico2.getStringMensagens()); ;
+                break;
+            case "TOPICO3":
+                topico3.AddInscrito(mensagem.getRemetente(),ps);
+                retorno = ("Registro realizado com sucesso no Topico3!" + topico3.getStringMensagens()); ;
+                break;
+                
+        }
+        return retorno;
+>>>>>>> master
     }
     /**
      * Método retorna todas as mensagens de cujo o inscrito está registrado.
@@ -130,6 +184,7 @@ public class Regra {
         return "";
     }
 
+<<<<<<< HEAD
     private void update(Topico topico) throws IOException {
          LinkedList<Assinate> lista =  (LinkedList<Assinate>) topico.getAssinates();
          for (Iterator<Assinate> iterator = lista.iterator(); iterator.hasNext();) {
@@ -137,6 +192,16 @@ public class Regra {
             next.update(topico, s);
             c = new Cliente(next.getIP(),Integer.parseInt(next.getPorta()) );
             c.enviaMensagem(next.getMensagem().toString());
+=======
+    private void update(Topico topico ) throws IOException {
+         
+        LinkedList<Assinate> lista =  (LinkedList<Assinate>) topico.getAssinates();
+        
+         for (Iterator<Assinate> iterator = lista.iterator(); iterator.hasNext();) {
+            Assinate next = iterator.next();
+            next.update(topico, null);
+             
+>>>>>>> master
         }
     }
 

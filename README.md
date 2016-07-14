@@ -42,4 +42,5 @@ git push origin bNOME_DA_SUA_BRANCH
 
 8- Sempre repita os passos 5 e 6 antes de realizar mudanças. Isso ajuda a evitar conflitos
 
+-->
 
